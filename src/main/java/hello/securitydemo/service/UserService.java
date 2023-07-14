@@ -3,6 +3,7 @@ package hello.securitydemo.service;
 import hello.securitydemo.domain.User;
 import hello.securitydemo.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -10,6 +11,7 @@ import org.springframework.stereotype.Service;
 public class UserService {
 
     private final UserRepository userRepository;
+    private final BCryptPasswordEncoder encoder;
 
     public String join(String userName, String password) {
         // userName 중복 체크
@@ -23,7 +25,7 @@ public class UserService {
         userRepository.save(
                 User.builder()
                         .userName(userName)
-                        .password(password)
+                        .password(encoder.encode(password))
                         .build()
         );
 
