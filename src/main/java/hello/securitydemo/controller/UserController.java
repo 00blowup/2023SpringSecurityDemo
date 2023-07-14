@@ -1,6 +1,7 @@
 package hello.securitydemo.controller;
 
 import hello.securitydemo.domain.dto.UserJoinRequestDto;
+import hello.securitydemo.domain.dto.UserLoginRequestDto;
 import hello.securitydemo.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -20,5 +21,11 @@ public class UserController {
     public ResponseEntity<String> join (@RequestBody UserJoinRequestDto requestDto) {
         userService.join(requestDto.getUserName(), requestDto.getPassword());
         return ResponseEntity.ok().body("successfully joined");
+    }
+
+    @PostMapping("/login")
+    public ResponseEntity<String> login(@RequestBody UserLoginRequestDto requestDto) {
+        String token = userService.login(requestDto.getUserName(), requestDto.getPassword());
+        return ResponseEntity.ok().body("successfully logged in (token: " + token + ")");
     }
 }
