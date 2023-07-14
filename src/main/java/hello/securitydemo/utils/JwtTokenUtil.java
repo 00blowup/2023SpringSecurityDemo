@@ -8,7 +8,7 @@ import java.util.Date;
 
 public class JwtTokenUtil {
     public static String createToken (String userName, String key, long expireTimeMs) {
-        Claims claims = Jwts.claims();  // 일종의 Map이다
+        Claims claims = Jwts.claims();  // 일종의 Map. 토큰 생성에 필요한 데이터를 담아두는 공간.
         claims.put("userName", userName);   // 회원명을 저장
 
         return Jwts.builder()
