@@ -17,7 +17,7 @@ public class UserService {
 
     private Long expireTimeMs = 1000 * 60 * 60L;    // 1시간
 
-    @Value("${jwt.token.secret}")
+    @Value("${jwt.key}")
     private String key;
 
     public String join(String userName, String password) {
