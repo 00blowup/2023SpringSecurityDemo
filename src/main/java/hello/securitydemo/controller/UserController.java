@@ -5,6 +5,7 @@ import hello.securitydemo.domain.dto.UserLoginRequestDto;
 import hello.securitydemo.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -24,8 +25,13 @@ public class UserController {
     }
 
     @PostMapping("/login")
-    public ResponseEntity<String> login(@RequestBody UserLoginRequestDto requestDto) {
+    public ResponseEntity<String> login (@RequestBody UserLoginRequestDto requestDto) {
         String token = userService.login(requestDto.getUserName(), requestDto.getPassword());
         return ResponseEntity.ok().body("successfully logged in (token: " + token + ")");
+    }
+
+    @PostMapping("/authtest")
+    public ResponseEntity<String> authtest (Authentication authentication) {
+        return ResponseEntity.ok().body("userName: " + authentication.getName());
     }
 }
